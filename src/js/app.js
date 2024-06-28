@@ -51,6 +51,16 @@ signInForm.addEventListener("submit", (event) => {
   main.classList.add("fixed-height");
 
   loadMessages();
+
+  onValue(chatRef, (snapshot) => {
+    const data = snapshot.val();
+    const messages = Object.values(data).sort((a, b) => {
+      if (a.createdAt > b.createdAt) return 1;
+      if (a.createdAt < b.createdAt) return -1;
+    });
+
+    addMessage(messages[messages.length - 1]);
+  });
 });
 
 const messageInputButton = document.querySelector(".message-input button");
@@ -72,7 +82,6 @@ messageInputButton.addEventListener("click", async () => {
 
   await saveChat(message);
 
-  addMessage(message);
   messageInputText.value = "";
 });
 
