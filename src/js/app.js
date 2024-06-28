@@ -1,62 +1,5 @@
-const CHAT_HISTORY = [
-  {
-    userId: 1,
-    nickname: "RM",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요. :)",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-  {
-    userId: 2,
-    nickname: "푸우",
-    createdAt: '2024-06-27T18:06:40.036Z',
-    text: "안녕하세요..ㅎㅎ",
-  },
-];
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase-database.min.js";
+import { getDatabase, ref, set, onValue, child, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDMT5s6JPJPRjnzL8FdWN3Ojpfz_gAjs44",
@@ -72,20 +15,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const chatRef = ref(db, '/');
+const chatRef = ref(db, "/chats");
 
-async function fb () {
-  await set(chatRef, {
-    something: 1
-  });
+async function saveChat(data) {
+  const messageRef = ref(db, `/chats/${data.id}`);
+  await set(messageRef, data);
 }
-
-fb();
-
-onValue(chatRef, (snapshot) => {
-  const data = snapshot.val();
-  console.log(data);
-});
 
 const signInPage = document.querySelector(".signin");
 const chatPage = document.querySelector(".chat");
@@ -119,28 +54,36 @@ signInForm.addEventListener("submit", (event) => {
 const messageInputButton = document.querySelector(".message-input button");
 const messageInputText = document.querySelector(".message-input textarea");
 
-messageInputButton.addEventListener("click", () => {
+messageInputButton.addEventListener("click", async () => {
   if (messageInputText.value.trim() === "") {
     alert("메시지를 입력해주세요.");
     return;
   }
 
   const message = {
+    id: Math.floor(Math.random() * 100000000),
     userId: currentUser.userId,
     nickname: currentUser.nickname,
     createdAt: new Date().toISOString(),
     text: messageInputText.value,
   };
 
-  const db = getDatabase();
-  set(ref(db, 'chit-chat'), message);
+  await saveChat(message);
 
+  addMessage(message);
   messageInputText.value = "";
 });
 
-function loadMessages () {
-  for (let i = 0; i < CHAT_HISTORY.length; i++) {
-    const message = CHAT_HISTORY[i];
+async function loadMessages () {
+  const snapshot = await get(chatRef);
+  const data = snapshot.val();
+  const messages = Object.values(data).sort((a, b) => {
+    if (a.createdAt > b.createdAt) return 1;
+    if (a.createdAt < b.createdAt) return -1;
+  });
+
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i];
 
     addMessage(message);
   }
