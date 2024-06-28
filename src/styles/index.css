@@ -97,7 +97,8 @@ main {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  margin-top: 30px;
+  padding-top: 30px;
+  box-sizing: content-box;
   color: #ffffff;
   opacity: 1;
 }
