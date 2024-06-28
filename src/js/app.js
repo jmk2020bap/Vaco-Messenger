@@ -22,6 +22,7 @@ async function saveChat(data) {
   await set(messageRef, data);
 }
 
+const main = document.querySelector("main");
 const signInPage = document.querySelector(".signin");
 const chatPage = document.querySelector(".chat");
 const overlay = document.querySelector(".overlay");
@@ -47,6 +48,7 @@ signInForm.addEventListener("submit", (event) => {
   signInPage.classList.add("hide");
   chatPage.classList.remove("transparent");
   overlay.classList.remove("transparent");
+  main.classList.add("fixed-height");
 
   loadMessages();
 });

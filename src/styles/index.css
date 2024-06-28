@@ -36,6 +36,10 @@ main {
   z-index: 20;
 }
 
+main.fixed-height {
+  height: 85vh;
+}
+
 .signin {
   display: flex;
   height: 100%;
