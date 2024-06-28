@@ -3,6 +3,7 @@
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -32,7 +33,6 @@ body {
 main {
   min-width: 320px;
   width: 50%;
-  height: 90vh;
   z-index: 20;
 }
 
