@@ -38,6 +38,7 @@ main {
 
 main.fixed-height {
   height: 85vh;
+  padding-top: 20px;
 }
 
 .signin {
@@ -101,7 +102,6 @@ main.fixed-height {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding-top: 30px;
   box-sizing: content-box;
   color: #ffffff;
   opacity: 1;
