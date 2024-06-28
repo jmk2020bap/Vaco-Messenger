@@ -12,6 +12,10 @@ body {
   align-items: center;
   font-size: 16px;
   font-family: "Pretendard";
+  background-image: url(../assets/background.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #vaco {
@@ -19,10 +23,175 @@ body {
   top: 20px;
   right: 20px;
   width: 100px;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  z-index: 100;
 }
 
 main {
-  border: 1px solid grey;
-  width: 420px;
-  height: 800px;
+  min-width: 320px;
+  width: 50%;
+  height: 90vh;
+  z-index: 20;
+}
+
+.signin {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin input {
+  height: 2rem;
+  width: 200px;
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #030303;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  transition: all .3s ease-out;
+}
+
+.signin input::placeholder {
+  color: #e8e8e8;
+}
+
+.signin input:focus::placeholder {
+  color: transparent;
+}
+
+.signin input:focus {
+  outline: none;
+  width: 240px;
+  border-bottom-color: #a020f0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  opacity: 1;
+  transition: all .6s ease-out;
+}
+
+.transparent {
+  opacity: 0 !important;
+}
+
+.hide {
+  display: none;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.messages {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-bottom: 10px;
+}
+
+.messages .right {
+  display: flex;
+  justify-content: end;
+}
+
+.message {
+  color: #ffffff;
+  padding: 10px;
+  margin: 15px 10px;
+  position: relative;
+  max-width: 160px;
+}
+
+.message .nickname {
+  position: absolute;
+  top: -2px;
+  right: 0px;
+  font-size: 12px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  color: #030303;
+  padding: 5px 8px;
+  font-weight: bold;
+}
+
+.message p:first-of-type {
+  margin-bottom: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 10px;
+  word-wrap: break-word;
+  line-height: 1.4rem;
+}
+
+.message p:last-of-type {
+  font-size: 12px;
+  text-align: right;
+}
+
+.message-input {
+  display: flex;
+  position: relative;
+}
+
+.message-input button {
+  background: none;
+  border: none;
+  padding: 10px 10px 10px 20px;
+  position: absolute;
+  top: 5px;
+  right: 0;
+  font-size: 1.2rem;
+  transition: all .5s ease-out;
+}
+
+.message-input button:hover {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.message-input textarea {
+  flex: 1;
+  height: 1.5rem;
+  padding: 15px;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #a020f0;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: #ffffff;
+  transition: all .3s ease-out;
+  resize: none;
+}
+
+.message-input textarea::placeholder {
+  color: #e8e8e8;
+}
+
+.message-input textarea:focus::placeholder {
+  color: transparent;
+}
+
+.message-input textarea:focus {
+  outline: none;
 }
