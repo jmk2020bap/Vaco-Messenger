@@ -29,8 +29,9 @@ signInSubmit.addEventListener("click", () => {
   initializeChat();
 });
 
-messageInputForm.addEventListener("submit", handleMessageSubmit);
-messageInputButton.addEventListener("click", handleMessageSubmit);
+// 메시지 입력 TODO #1
+/* ----- 이벤트 추가 code #1 ----- */
+/* ----- 이벤트 추가 code #2 ----- */
 
 async function initializeChat () {
   if (nicknameInput.value.trim() === "") {
@@ -57,13 +58,14 @@ async function handleMessageSubmit(event) {
     return;
   }
 
+  // 메시지 입력 TODO #2
   const message = {
     id: Math.floor(Math.random() * 100000000),
     userId: currentUser.userId,
-    nickname: currentUser.nickname,
     createdAt: new Date().toISOString(),
-    text: messageInputText.value,
-    colorCode: currentUser.colorCode
+    colorCode: currentUser.colorCode,
+    /* ----- 객체 code #3 ----- */
+    /* ----- 객체 code #4 ----- */
   };
 
   await saveChat(message);
@@ -74,10 +76,8 @@ async function handleMessageSubmit(event) {
 async function loadMessages () {
   const messages = await getAllMessages();
 
-  for (let i = 0; i < messages.length; i++) {
-    const message = messages[i];
-    addMessage(message);
-  }
+  // 메시지 입력 TODO #3
+  /* ----- 반복문 code #5 ----- */
 }
 
 function addMessage (message) {
@@ -90,9 +90,8 @@ function addMessage (message) {
   const newMessage = document.createElement("div");
   newMessage.innerHTML = html;
 
-  if (message.userId === currentUser.userId) {
-    newMessage.classList.add("right");
-  }
+  // 메시지 입력 TODO #4
+  /* ----- 조건문 code #6 ----- */
 
   const messages = document.querySelector(".messages");
 
