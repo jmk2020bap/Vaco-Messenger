@@ -48,6 +48,23 @@ main.fixed-height {
   justify-content: center;
 }
 
+.signin form {
+  position: relative;
+}
+
+.signin img {
+  width: 20px;
+  position: absolute;
+  right: -5px;
+  padding: 10px;
+  transition: all .3s linear;
+}
+
+.signin img:hover {
+  cursor: pointer;
+  width: 24px;
+}
+
 .signin input {
   height: 2rem;
   width: 200px;
@@ -73,7 +90,7 @@ main.fixed-height {
 .signin input:focus {
   outline: none;
   width: 240px;
-  border-bottom-color: #02c7bb;
+  border-bottom-color: #030303;
 }
 
 .overlay {

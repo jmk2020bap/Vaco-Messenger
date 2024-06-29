@@ -7,6 +7,7 @@ const chatPage = document.querySelector(".chat");
 const overlay = document.querySelector(".overlay");
 
 const signInForm = document.querySelector(".signin form");
+const signInSubmit = document.querySelector(".signin img");
 const nicknameInput = document.querySelector(".signin input");
 
 const messageInputButton = document.querySelector(".message-input button");
@@ -20,21 +21,11 @@ const currentUser = {
 
 signInForm.addEventListener("submit", (event) => {
   event.preventDefault();
+  initialzeChat();
+});
 
-  if (nicknameInput.value.trim() === "") {
-    alert("닉네임을 입력해주세요.");
-    return;
-  }
-
-  currentUser.nickname = nicknameInput.value;
-
-  signInPage.classList.add("hide");
-  chatPage.classList.remove("transparent");
-  overlay.classList.remove("transparent");
-  main.classList.add("fixed-height");
-
-  loadMessages();
-  subscribeToNewMessage(addMessage);
+signInSubmit.addEventListener("click", () => {
+  initialzeChat();
 });
 
 messageInputButton.addEventListener("click", async () => {
@@ -56,6 +47,23 @@ messageInputButton.addEventListener("click", async () => {
 
   messageInputText.value = "";
 });
+
+function initialzeChat () {
+  if (nicknameInput.value.trim() === "") {
+    alert("닉네임을 입력해주세요.");
+    return;
+  }
+
+  currentUser.nickname = nicknameInput.value;
+
+  signInPage.classList.add("hide");
+  chatPage.classList.remove("transparent");
+  overlay.classList.remove("transparent");
+  main.classList.add("fixed-height");
+
+  loadMessages();
+  subscribeToNewMessage(addMessage);
+}
 
 async function loadMessages () {
   const messages = await getAllMessages();
