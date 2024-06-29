@@ -10,18 +10,25 @@ export async function saveChat(data) {
   await set(messageRef, data);
 }
 
+let isInitialFetch = true;
+
 export function subscribeToNewMessage (callback) {
   const chatRef = ref(db, "/chats");
 
   onValue(chatRef, (snapshot) => {
+    if (isInitialFetch) {
+      isInitialFetch = false;
+      return;
+    }
+
     const data = snapshot.val();
     const messages = Object.values(data).sort((a, b) => {
       if (a.createdAt > b.createdAt) return 1;
       if (a.createdAt < b.createdAt) return -1;
     });
-    const lastMessage = messages[messages.length - 1];
+    const newMessage = messages[messages.length - 1];
 
-    callback(lastMessage);
+    callback(newMessage);
   });
 }
 
@@ -29,6 +36,9 @@ export async function getAllMessages () {
   const chatRef = ref(db, "/chats");
   const snapshot = await get(chatRef);
   const data = snapshot.val();
+
+  if  (data === null) return [];
+
   const sortedMessages = Object.values(data).sort((a, b) => {
     if (a.createdAt > b.createdAt) return 1;
     if (a.createdAt < b.createdAt) return -1;

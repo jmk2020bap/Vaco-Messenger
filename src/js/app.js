@@ -22,17 +22,17 @@ const currentUser = {
 
 signInForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  initialzeChat();
+  initializeChat();
 });
 
 signInSubmit.addEventListener("click", () => {
-  initialzeChat();
+  initializeChat();
 });
 
 messageInputForm.addEventListener("submit", handleMessageSubmit);
 messageInputButton.addEventListener("click", handleMessageSubmit);
 
-function initialzeChat () {
+async function initializeChat () {
   if (nicknameInput.value.trim() === "") {
     alert("닉네임을 입력해주세요.");
     return;
@@ -45,7 +45,7 @@ function initialzeChat () {
   overlay.classList.remove("transparent");
   main.classList.add("fixed-height");
 
-  loadMessages();
+  await loadMessages();
   subscribeToNewMessage(addMessage);
 }
 
