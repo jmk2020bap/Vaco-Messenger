@@ -200,7 +200,7 @@ main.fixed-height {
   font-size: 1.5rem;
 }
 
-.message-input textarea {
+.message-input input {
   flex: 1;
   width: calc(100% - 50px);
   height: 1.5rem;
@@ -216,14 +216,14 @@ main.fixed-height {
   resize: none;
 }
 
-.message-input textarea::placeholder {
+.message-input input::placeholder {
   color: #e8e8e8;
 }
 
-.message-input textarea:focus::placeholder {
+.message-input input:focus::placeholder {
   color: transparent;
 }
 
-.message-input textarea:focus {
+.message-input input:focus {
   outline: none;
 }

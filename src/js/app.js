@@ -10,8 +10,9 @@ const signInForm = document.querySelector(".signin form");
 const signInSubmit = document.querySelector(".signin img");
 const nicknameInput = document.querySelector(".signin input");
 
+const messageInputForm = document.querySelector(".message-input");
 const messageInputButton = document.querySelector(".message-input button");
-const messageInputText = document.querySelector(".message-input textarea");
+const messageInputText = document.querySelector(".message-input input");
 
 const currentUser = {
   userId: Math.floor(Math.random() * 100000000),
@@ -28,7 +29,29 @@ signInSubmit.addEventListener("click", () => {
   initialzeChat();
 });
 
-messageInputButton.addEventListener("click", async () => {
+messageInputForm.addEventListener("submit", handleMessageSubmit);
+messageInputButton.addEventListener("click", handleMessageSubmit);
+
+function initialzeChat () {
+  if (nicknameInput.value.trim() === "") {
+    alert("닉네임을 입력해주세요.");
+    return;
+  }
+
+  currentUser.nickname = nicknameInput.value;
+
+  signInPage.classList.add("hide");
+  chatPage.classList.remove("transparent");
+  overlay.classList.remove("transparent");
+  main.classList.add("fixed-height");
+
+  loadMessages();
+  subscribeToNewMessage(addMessage);
+}
+
+async function handleMessageSubmit(event) {
+  event.preventDefault();
+
   if (messageInputText.value.trim() === "") {
     alert("메시지를 입력해주세요.");
     return;
@@ -46,23 +69,6 @@ messageInputButton.addEventListener("click", async () => {
   await saveChat(message);
 
   messageInputText.value = "";
-});
-
-function initialzeChat () {
-  if (nicknameInput.value.trim() === "") {
-    alert("닉네임을 입력해주세요.");
-    return;
-  }
-
-  currentUser.nickname = nicknameInput.value;
-
-  signInPage.classList.add("hide");
-  chatPage.classList.remove("transparent");
-  overlay.classList.remove("transparent");
-  main.classList.add("fixed-height");
-
-  loadMessages();
-  subscribeToNewMessage(addMessage);
 }
 
 async function loadMessages () {
