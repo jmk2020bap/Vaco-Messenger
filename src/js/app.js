@@ -31,9 +31,12 @@ signInSubmit.addEventListener("click", () => {
 
 // 메시지 입력 TODO #1
 /* ----- 이벤트 추가 code #1 ----- */
-/* ----- 이벤트 추가 code #2 ----- */
+messageInputForm.addEventListener("submit", handleMessageSubmit);
 
-async function initializeChat () {
+/* ----- 이벤트 추가 code #2 ----- */
+messageInputButton.addEventListener("click", handleMessageSubmit);
+
+async function initializeChat() {
   if (nicknameInput.value.trim() === "") {
     alert("닉네임을 입력해주세요.");
     return;
@@ -51,6 +54,7 @@ async function initializeChat () {
 }
 
 async function handleMessageSubmit(event) {
+  console.log("execute?");
   event.preventDefault();
 
   if (messageInputText.value.trim() === "") {
@@ -65,7 +69,10 @@ async function handleMessageSubmit(event) {
     createdAt: new Date().toISOString(),
     colorCode: currentUser.colorCode,
     /* ----- 객체 code #3 ----- */
+    nickname: currentUser.nickname,
     /* ----- 객체 code #4 ----- */
+    text: messageInputText.value,
+
   };
 
   await saveChat(message);
@@ -73,14 +80,18 @@ async function handleMessageSubmit(event) {
   messageInputText.value = "";
 }
 
-async function loadMessages () {
+async function loadMessages() {
   const messages = await getAllMessages();
 
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i];
+    addMessage(message);
+  }
   // 메시지 입력 TODO #3
   /* ----- 반복문 code #5 ----- */
 }
 
-function addMessage (message) {
+function addMessage(message) {
   const html = `<div class="message">
     <p>${message.text}</p>
     <p class="nickname" style="background-color: ${message.colorCode}">💁🏻‍♂️ ${message.nickname}</p>
@@ -92,6 +103,9 @@ function addMessage (message) {
 
   // 메시지 입력 TODO #4
   /* ----- 조건문 code #6 ----- */
+  if (message.userId === currentUser.userId) {
+    newMessage.classList.add("right");
+  }
 
   const messages = document.querySelector(".messages");
 
